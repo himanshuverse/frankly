@@ -1,4 +1,4 @@
-# True Feedback
+# FRANKLY
 
 An anonymous feedback platform where users can receive honest, anonymous messages through a personal shareable link — built with Next.js and MongoDB.
 
