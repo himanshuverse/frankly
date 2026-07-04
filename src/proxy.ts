@@ -9,6 +9,7 @@ export async function proxy(request: NextRequest) {
 
     const token = await getToken({req:request})
     const url = request.nextUrl
+    const {pathname} = request.nextUrl
 
     if(token && 
         (
