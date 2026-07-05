@@ -1,3 +1,4 @@
+
 import dbConnect from "@/src/lib/dbConnect";
 import bcrypt from "bcryptjs"
 import UserModel from "@/src/model/user";
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
                 message: "username already taken",
             }, {
                 status: 400
-            })
+            })}
             const existingUserByEmail = await UserModel.findOne({
                 email
             })
@@ -79,16 +80,7 @@ export async function POST(request: Request) {
             })
         }
 
-
-
-
-
-
-
-
-
-
-    }
+    
     
  catch (error) {
 
