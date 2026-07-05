@@ -1,0 +1,64 @@
+import dbConnect from "@/src/lib/dbConnect";
+import UserModel from "@/src/model/user";
+
+
+export async function POST(request:Request){
+    await dbConnect()
+
+    try {
+        const {username , code} =await request.json()
+
+        const decodedUsername=decodeURIComponent(username)
+        const user =await UserModel.findOne({
+            username:decodedUsername
+        })
+
+        if(!user){
+             return Response.json({
+                success:false,
+                message:"User not found "
+            },{
+                status:500
+            })
+        }
+
+        const isCodeValid =user.verifyCode===code
+        const isCodenotExpired = new Date(user.verifyCodeExp) > new Date()
+        if(isCodeValid && isCodenotExpired ){
+            user.isVerified=true
+            await user.save()
+             return Response.json({
+                success:true,
+                message:"User is verified "
+            },{
+                status:201
+            })
+        }
+        else if (!isCodenotExpired){
+             return Response.json({
+                success:false,
+                message:"code is expired , sign up again "
+            },{
+                status:400
+            })
+        }
+        else {
+             return Response.json({
+                success:false,
+                message:"code not valid "
+            },{
+                status:400
+            })
+        }
+
+    } catch (error) {
+        console.error("error verifying user", error)
+            return Response.json({
+                success:false,
+                message:"error verifying user "
+            },{
+                status:500
+            })
+    }
+
+}
