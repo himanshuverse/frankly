@@ -1,7 +1,5 @@
 "use client"
 
-import dbConnect from "@/src/lib/dbConnect";
-import UserModel from "@/src/model/user";
 import {z} from "zod"
 import { useState,useEffect } from "react";
 import Link from "next/link";
