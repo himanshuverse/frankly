@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {Loader2}  from "lucide-react"
+import toast from "react-hot-toast";
 
 
 
@@ -66,6 +67,7 @@ const form = useForm<z.infer<typeof signUpSchema>>({
       const response = await axios.post<ApiResponse>('/api/sign-up', data);
 
       router.replace(`/verify/${username}`);
+      toast("success")
 
       setIsSubmitting(false);
     } catch (error) {
@@ -76,6 +78,7 @@ const form = useForm<z.infer<typeof signUpSchema>>({
       // Default error message
       let errorMessage = axiosError.response?.data.message;
       ('There was a problem with your sign-up. Please try again.');
+      toast("Sign up failed ")
 
       setIsSubmitting(false);
     }

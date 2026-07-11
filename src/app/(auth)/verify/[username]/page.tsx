@@ -11,6 +11,7 @@ import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { verifySchema } from '@/src/schemas/verifySchema';
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
+import toast from 'react-hot-toast';
 
 export default function VerifyAccount() {
   const router = useRouter();
@@ -25,12 +26,13 @@ export default function VerifyAccount() {
         username: params.username,
         code: data.code,
       });
+      toast("success")
 
 
       router.replace('/sign-in');
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      
+      toast("Verification Failed")
     }
   };
 
