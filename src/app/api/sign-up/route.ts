@@ -30,7 +30,7 @@ export async function POST(request: Request) {
         let verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
         if (existingUserByEmail) {
             if (existingUserByEmail.isVerified) {
-                Response.json({
+                return Response.json({
                     success: false,
                     message: "user already exist with this email"
                 }, {
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
                 email,
                 password: hashedPassword,
                 verifyCode,
-                verifyCodeExpiry: expiryDate,
+                verifyCodeExp: expiryDate,
                 isVerified: false,
                 isAcceptingMessages: true,
                 messages: [],
@@ -65,15 +65,15 @@ export async function POST(request: Request) {
         // send email
         const emailResponse = await sendVerificationEmail(email, username, verifyCode)
 
-        if (!emailResponse.success) {
-            return Response.json({
-                success: false,
-                message: emailResponse.message
-            }, {
-                status: 500
-            })
+    //     if (!emailResponse.success) {
+    //         return Response.json({
+    //             success: false,
+    //             message: emailResponse.message
+    //         }, {
+    //             status: 500
+    //         })
         
-    }
+    // }
             return Response.json({
         success: true,
         message: "User is successfully registered"
