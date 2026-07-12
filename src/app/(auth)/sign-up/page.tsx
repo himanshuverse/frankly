@@ -14,8 +14,10 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {Loader2}  from "lucide-react"
 import toast from "react-hot-toast";
+import { Loader2, MessageSquare, ShieldCheck } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
+
 
 
 
@@ -85,99 +87,164 @@ const form = useForm<z.infer<typeof signUpSchema>>({
   };
 
   return (
-    <div  className="flex justify-center items-center min-h-screen bg-gray-800">
-            <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
-                      <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Join True Feedback
-          </h1>
-          <p className="mb-4">Sign up to start your anonymous adventure</p>
+    <div className="min-h-screen flex flex-col justify-between bg-background bg-grid-pattern">
+      {/* Header */}
+      <header className="w-full border-b border-dashed border-border/40 bg-background/80 backdrop-blur-sm">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 rounded-none bg-primary flex items-center justify-center">
+              <MessageSquare className="w-4 h-4 text-primary-foreground" />
+            </div>
+            <span className="font-bold text-lg tracking-tight text-foreground">
+              frankly<span className="text-primary">.</span>
+            </span>
+          </Link>
+          <ThemeToggle />
         </div>
+      </header>
 
-     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FieldGroup>
+      {/* Main Body */}
+      <main className="flex-1 flex items-center justify-center py-12 px-4 relative overflow-hidden">
+        <div className="w-full max-w-md">
+          <div className="blueprint-panel rounded-none p-6 md:p-8 shadow-sm relative overflow-hidden space-y-6 bg-card/40 backdrop-blur-sm">
+            <div className="text-center">
+              <h1 className="text-2xl font-bold tracking-tight uppercase text-foreground">
+                Create your page 
+              </h1>
+              <p className="text-xs text-muted-foreground mt-1">
+                Sign up to start your anonymous adventure
+              </p>
+            </div>
+
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FieldGroup className="space-y-4">
+                {/* Username */}
                 <Controller
-                    control={form.control}
-                    name="username"
-                    render={({ field , fieldState}) => (
-                        <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel> Name </FieldLabel>
-                            <Input placeholder="Enter your username" {...field} onChange={(e)=>{
-                              field.onChange(e)
-                              setUsername(e.target.value)
-                            }} />
-                             {isCheckingUsername && <Loader2 className="animate-spin" />}
-                  {!isCheckingUsername && usernameMessage && (
-                    <p
-                      className={`text-sm ${
-                        usernameMessage === 'Username is unique'
-                          ? 'text-green-500'
-                          : 'text-red-500'
-                      }`}
-                    >
-                      {usernameMessage}
-                    </p>
+                  control={form.control}
+                  name="username"
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid} className="space-y-1 block">
+                      <FieldLabel className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block mb-1">
+                        Name
+                      </FieldLabel>
+                      <div className="relative flex items-center">
+                        <Input
+                          placeholder="Enter your username"
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(e);
+                            setUsername(e.target.value);
+                          }}
+                          className="w-full rounded-none border border-dashed border-border bg-card/40 hover:bg-card/75 focus:bg-card focus:border-primary focus:outline-none transition-all px-3 py-2.5 text-sm"
+                        />
+                        {isCheckingUsername && (
+                          <Loader2 className="absolute right-3 w-4.5 h-4.5 animate-spin text-muted-foreground" />
+                        )}
+                      </div>
+                      {!isCheckingUsername && usernameMessage && (
+                        <p
+                          className={`text-[10px] uppercase font-bold mt-1 ${
+                            usernameMessage === 'Username is unique'
+                              ? 'text-primary'
+                              : 'text-red-500'
+                          }`}
+                        >
+                          {usernameMessage}
+                        </p>
+                      )}
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} className="text-[10px] uppercase font-bold text-red-500 mt-1 block" />
+                      )}
+                    </Field>
                   )}
-                            {
-                                fieldState.invalid && (
-                                <FieldError errors={[fieldState.error]}/>
-                                )
-                            }
-                            
-                        </Field>
-                    )} />
+                />
+
+                {/* Email */}
                 <Controller
-                    control={form.control}
-                    name="email"
-                    render={({ field, fieldState }) => (
-                        <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="email">Email</FieldLabel>
-                            <Input {...field} id="email" type="email" placeholder="Enter your email" />
-                            <p className=' text-gray-400 text-sm'>We will send you a verification code</p>
+                  control={form.control}
+                  name="email"
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid} className="space-y-1 block">
+                      <FieldLabel htmlFor="email" className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block mb-1">
+                        Email
+                      </FieldLabel>
+                      <Input
+                        {...field}
+                        id="email"
+                        type="email"
+                        placeholder="Enter your email"
+                        className="w-full rounded-none border border-dashed border-border bg-card/40 hover:bg-card/75 focus:bg-card focus:border-primary focus:outline-none transition-all px-3 py-2.5 text-sm"
+                      />
+                      <p className="text-[10px] text-muted-foreground font-medium">
+                        We will send you a verification code
+                      </p>
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} className="text-[10px] uppercase font-bold text-red-500 mt-1 block" />
+                      )}
+                    </Field>
+                  )}
+                />
 
-                            {fieldState.invalid && (
-                                <FieldError errors={[fieldState.error]} />
-                            )}
-                        </Field>
-                    )} />
+                {/* Password */}
                 <Controller
-                    control={form.control}
-                    name="password"
-                    render={({ field ,fieldState }) => (
-                        <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel> Password </FieldLabel>
-                            <Input placeholder="Enter your Password" {...field} />
-                            {
-                                fieldState.invalid && (
-                                    <FieldError errors={[fieldState.error]}/>
-                                )
-                            }
-                        </Field>
-                    )} />
-               
+                  control={form.control}
+                  name="password"
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid} className="space-y-1 block">
+                      <FieldLabel className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block mb-1">
+                        Password
+                      </FieldLabel>
+                      <Input
+                        placeholder="Enter your Password"
+                        type="password"
+                        {...field}
+                        className="w-full rounded-none border border-dashed border-border bg-card/40 hover:bg-card/75 focus:bg-card focus:border-primary focus:outline-none transition-all px-3 py-2.5 text-sm"
+                      />
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} className="text-[10px] uppercase font-bold text-red-500 mt-1 block" />
+                      )}
+                    </Field>
+                  )}
+                />
+              </FieldGroup>
 
-            </FieldGroup>
-           <Button type="submit" className='w-full' disabled={isSubmitting}>
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                'Sign Up'
-              )}
-            </Button>
-        </form>
-        <div className="text-center mt-4">
-          <p>
-            Already a member?{' '}
-            <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
-              Sign in
-            </Link>
-          </p>
-        </div>
-        </div>
-        </div>
-  )
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-3 mt-2 rounded-none bg-primary border border-primary text-primary-foreground font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed active:scale-[0.99]"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Please wait
+                  </>
+                ) : (
+                  'Sign Up'
+                )}
+              </Button>
+            </form>
 
+            <div className="text-center mt-4">
+              <p className="text-xs text-muted-foreground">
+                Already a member?{' '}
+                <Link href="/sign-in" className="text-primary font-bold hover:underline">
+                  Sign in
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Minimal Footer */}
+      <footer className="py-6 border-t border-dashed border-border/20 text-center text-xs text-muted-foreground">
+        <div className="container mx-auto px-4 flex items-center justify-center gap-1 text-[10px] uppercase tracking-wider font-bold">
+          <ShieldCheck className="w-4 h-4 text-primary" />
+          <span>Claiming a profile secures your custom URL. Standard terms apply.</span>
+        </div>
+      </footer>
+    </div>
+  );
 }
+
+  
