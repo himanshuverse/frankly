@@ -4,7 +4,7 @@ import { z } from "zod";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDebounceValue } from "usehooks-ts";
@@ -32,7 +32,10 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function SignUpPage() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
+    const searchParams = useSearchParams();
+const handleFromUrl = searchParams.get("handle") || "";
+
+  const [username, setUsername] = useState(handleFromUrl);
   const [debouncedUsername] = useDebounceValue(username, 300);
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isUsernameUnique, setIsUsernameUnique] = useState<boolean | null>(
@@ -41,12 +44,13 @@ export default function SignUpPage() {
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     mode: "onBlur",
 
     defaultValues: {
-      username: "",
+      username: handleFromUrl ,
       email: "",
       password: "",
     },
