@@ -20,17 +20,17 @@ export function BentoFeatures() {
     positive: {
       text: "Great work on the backend API migration, speed is 3x faster!",
       category: "Compliment",
-      colorClass: "border-primary/30 bg-primary/5 text-primary"
+      colorClass: "border-emerald-500/20 dark:border-primary/20 bg-emerald-500/5 dark:bg-primary/5 text-emerald-700 dark:text-primary"
     },
     suggestion: {
       text: "Can we transition standups to Slack updates to save time?",
       category: "Suggestion",
-      colorClass: "border-amber-500/30 bg-amber-500/5 text-amber-500"
+      colorClass: "border-amber-500/20 bg-amber-500/5 text-amber-700 dark:text-amber-400"
     },
     critique: {
       text: "The final page layout structure feels a bit rushed and narrow.",
       category: "Critique",
-      colorClass: "border-zinc-500/30 bg-zinc-500/5 text-zinc-400"
+      colorClass: "border-zinc-500/20 bg-zinc-500/5 text-zinc-700 dark:text-zinc-400"
     }
   };
 
@@ -261,23 +261,23 @@ export function BentoFeatures() {
               </div>
 
               {/* Redesigned Abuse Filter Console widget with terminal log styling */}
-              <div className="mt-8 flex flex-col gap-2 relative bg-zinc-950/40 p-3 border border-dashed border-border shadow-inner min-h-[148px]">
+              <div className="mt-8 flex flex-col gap-2 relative bg-zinc-950 p-3 border border-dashed border-zinc-900 shadow-inner min-h-[148px]">
                 
                 {/* Glowing Laser Scanline Overlay */}
                 {filterActive && (
                   <div className="absolute inset-0 bg-gradient-to-b from-primary/0 via-primary/5 to-primary/0 border-y border-primary/10 pointer-events-none z-10 laser-scan h-full w-full" />
                 )}
 
-                <div className="flex items-center justify-between text-[8px] uppercase tracking-wider font-mono pb-2 border-b border-dashed border-border mb-1.5 z-20">
+                <div className="flex items-center justify-between text-[8px] uppercase tracking-wider font-mono pb-2 border-b border-dashed border-zinc-900 mb-1.5 z-20">
                   <div className="flex items-center gap-1.5">
-                    <Terminal className="w-3 h-3 text-zinc-500" />
+                    <Terminal className="w-3.5 h-3.5 text-zinc-500" />
                     <span className="text-zinc-400">Shield Console</span>
                   </div>
                   <button
                     onClick={() => setFilterActive(!filterActive)}
                     className={`text-[8px] px-1.5 py-0.5 rounded-none font-bold font-sans tracking-wide transition-all cursor-pointer border ${filterActive
-                        ? "bg-primary border-primary text-black"
-                        : "bg-muted text-muted-foreground border-dashed border-border"
+                        ? "bg-emerald-500 border-emerald-500 text-black"
+                        : "bg-muted text-zinc-500 border-dashed border-zinc-800"
                       }`}
                   >
                     {filterActive ? "SHIELD: ON" : "SHIELD: OFF"}
@@ -288,7 +288,7 @@ export function BentoFeatures() {
                 <div className="space-y-2 z-20 font-mono text-[8px] leading-tight">
                   <div className="flex items-center justify-between gap-1 text-zinc-500">
                     <span>[LOG] SYSTEM CHECK OK</span>
-                    <span className="text-emerald-500">PASS</span>
+                    <span className="text-emerald-400">PASS</span>
                   </div>
 
                   {/* Log item 1 */}
@@ -297,7 +297,7 @@ export function BentoFeatures() {
                       {filterActive ? "[LOG] SCAN: 'http://sp...'" : "[MSG] 'Check out this crypto link'"}
                     </span>
                     {filterActive ? (
-                      <span className="text-amber-500 font-bold px-1 bg-amber-500/10 border border-amber-500/20 shrink-0">BLOCK</span>
+                      <span className="text-amber-400 font-bold px-1 bg-amber-400/10 border border-amber-400/20 shrink-0">BLOCK</span>
                     ) : (
                       <span className="text-zinc-500 shrink-0">INBOX</span>
                     )}
@@ -308,7 +308,7 @@ export function BentoFeatures() {
                     <span className="text-zinc-400 truncate flex-1">
                       [MSG] "Love your meetings!"
                     </span>
-                    <span className="text-primary font-bold px-1 bg-primary/10 border border-primary/20 shrink-0">PASS</span>
+                    <span className="text-emerald-400 font-bold px-1 bg-emerald-400/10 border border-emerald-400/20 shrink-0">PASS</span>
                   </div>
                 </div>
               </div>
