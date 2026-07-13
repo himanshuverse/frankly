@@ -1,10 +1,14 @@
+import { Hero } from "@/components/hero"
 import { Navbar } from "@/components/navbar"
 
 const page = () => {
   return (
-    <div>
+    <>
       <Navbar/>
-    </div>
+      <div className="flex-1">
+        <Hero/>
+      </div>
+    </>
   )
 }
 
