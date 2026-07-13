@@ -1,7 +1,10 @@
+import { Navbar } from "@/components/navbar"
 
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <Navbar/>
+    </div>
   )
 }
 
