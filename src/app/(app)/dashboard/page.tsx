@@ -31,13 +31,10 @@ import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
 interface FeedbackItem {
-  id: number;
-  text: string;
-  category: "Compliment" | "Suggestion" | "Critique" | "General";
-  time: string;
-  isStarred: boolean;
-  isPublic: boolean;
-  likes: number;
+  _id: number;
+  content: string;
+  createdAt: string;
+  category ?:string;
 }
 
 export default function DashboardPage() {
@@ -84,27 +81,36 @@ export default function DashboardPage() {
     }
   }, [setValue, toast]);
 
-  const fetchMessages = useCallback(
-    async (refresh: boolean = false) => {
-      setIsLoading(true);
-      setIsSwitchLoading(false);
-      try {
-        const response = await axios.get<ApiResponse>('/api/get-messages');
-        setFeedbacks(response.data.messages || []);
-        if (refresh) {
-          toast(
-            'Showing latest messages');
-        }
-      } catch (error) {
-        const axiosError = error as AxiosError<ApiResponse>;
-        // toast( 'Failed to fetch messages');
-      } finally {
-        setIsLoading(false);
-        setIsSwitchLoading(false);
+ const fetchMessages = useCallback(
+  async (refresh: boolean = false) => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get<ApiResponse>("/api/get-messages");
+
+      console.log("API RESPONSE:", response.data);
+      console.log("MESSAGES:", response.data.messages);
+
+      setFeedbacks(response.data.messages || []);
+
+      if (refresh) {
+        toast("Showing latest messages");
       }
-    },
-    [setIsLoading, setFeedbacks, toast]
-  );
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiResponse>;
+
+      console.error(
+        "Failed to fetch messages:",
+        axiosError.response?.data || axiosError.message
+      );
+
+      toast("Failed to fetch messages");
+    } finally {
+      setIsLoading(false);
+    }
+  },
+  []
+);
 
   // Fetch initial state from the server
   useEffect(() => {
@@ -165,23 +171,11 @@ export default function DashboardPage() {
 
   const deleteFeedback = (id: number) => {
     setFeedbacks((prev) =>
-      prev.filter((feedback) => feedback.id !== id)
+      prev.filter((feedback) => feedback._id !== id)
     );
   };
 
-  const likeFeedback = (id: number) => {
-    setFeedbacks((prev) =>
-      prev.map((feedback) =>
-        feedback.id === id
-          ? {
-            ...feedback,
-            likes: feedback.likes + 1,
-          }
-          : feedback
-      )
-    );
-  };
-
+ 
   const filteredFeedbacks = feedbacks.filter((feedback) => {
     if (filterCategory === "All") {
       return true;
@@ -369,8 +363,7 @@ export default function DashboardPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {filteredFeedbacks.length > 0 ? (
                   filteredFeedbacks.map((feedback) => (
-                    <div
-                      key={feedback.id}
+               <div key={feedback._id}
                       className="blueprint-panel rounded-none p-5 shadow-sm blueprint-card flex flex-col justify-between"
                     >
                       <div>
@@ -384,12 +377,12 @@ export default function DashboardPage() {
                           </span>
 
                           <span className="text-[10px] text-muted-foreground">
-                            {feedback.time}
+                            {new Date(feedback.createdAt).toLocaleDateString()}
                           </span>
                         </div>
 
                         <p className="text-sm leading-relaxed text-foreground/90 font-medium italic mb-6">
-                          &quot;{feedback.text}&quot;
+                          &quot;{feedback.content}&quot;
                         </p>
                       </div>
 
@@ -399,19 +392,10 @@ export default function DashboardPage() {
                         </div>
 
                         <div className="flex items-center gap-3">
+                          
                           <button
                             onClick={() =>
-                              likeFeedback(feedback.id)
-                            }
-                            className="flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold text-muted-foreground hover:text-primary transition-colors cursor-pointer"
-                          >
-                            <span>Likes</span>
-                            <span>({feedback.likes})</span>
-                          </button>
-
-                          <button
-                            onClick={() =>
-                              deleteFeedback(feedback.id)
+                              deleteFeedback(feedback._id)
                             }
                             className="p-1.5 rounded-none border border-transparent hover:border-red-500/20 hover:bg-red-500/10 text-muted-foreground hover:text-red-500 transition-all cursor-pointer"
                             title="Delete message"
@@ -470,13 +454,7 @@ export default function DashboardPage() {
                     Public Showcased
                   </span>
 
-                  <span className="text-3xl font-black block mt-1">
-                    {
-                      feedbacks.filter(
-                        (feedback) => feedback.isPublic
-                      ).length
-                    }
-                  </span>
+                  
 
                   <span className="text-[9px] text-muted-foreground mt-1 block uppercase font-bold tracking-wider">
                     Listed on profile
