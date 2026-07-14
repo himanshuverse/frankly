@@ -2,7 +2,7 @@
 
 import { signInSchema } from "@/src/schemas/signInSchema"
 import { Controller, useForm } from "react-hook-form"
-import z from "zod"
+import {z} from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
