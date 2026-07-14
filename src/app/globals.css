@@ -146,3 +146,9 @@ body {
 ::view-transition-new(root) {
   z-index: 9999;
 }
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(200%);
+  }
+}
