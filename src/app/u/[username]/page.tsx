@@ -51,6 +51,7 @@ export default function SendFeedbackPage() {
       const response = await axios.post<ApiResponse>("/api/send-message", {
         content: message,
         username,
+        category,
       });
 
       setIsSubmitted(true);
@@ -71,16 +72,16 @@ export default function SendFeedbackPage() {
   const getCategoryStyles = (cat: typeof category) => {
     switch (cat) {
       case "Compliment":
-        return "bg-primary/10 text-primary border-primary/20";
+        return "bg-pink-500/10 text-pink-500 border-pink-500/20 ring-pink-500/40";
 
       case "Suggestion":
-        return "bg-zinc-500/10 text-zinc-500 dark:text-zinc-400 border-zinc-500/20";
+        return "bg-blue-500/10 text-blue-500 border-blue-500/20 ring-blue-500/40";
 
       case "Critique":
-        return "bg-amber-500/10 text-amber-500 dark:text-amber-400 border-amber-500/20";
+        return "bg-red-500/10 text-red-500 border-red-500/20 ring-red-500/40";
 
       default:
-        return "bg-neutral-500/10 text-neutral-500 dark:text-neutral-400 border-neutral-500/20";
+        return "bg-neutral-500/10 text-neutral-500 dark:text-neutral-400 border-neutral-500/20 ring-neutral-500/40";
     }
   };
 
@@ -166,7 +167,7 @@ export default function SendFeedbackPage() {
                         className={`text-xs px-3.5 py-1.5 rounded-none border border-dashed transition-all cursor-pointer ${
                           category === cat
                             ? getCategoryStyles(cat) +
-                              " border-solid ring-1 ring-primary/45"
+                              " border-solid ring-1"
                             : "border-border hover:border-muted-foreground/30 bg-card/60 text-muted-foreground"
                         }`}
                       >
