@@ -38,8 +38,8 @@ export const authOptions :NextAuthOptions={
             }
 
 
-       } catch (err) {
-        throw new Error(err)
+       } catch (err: any) {
+        throw new Error(err?.message || String(err));
        }
         
     },
