@@ -42,6 +42,7 @@ export async function POST(request: Request) {
                 existingUserByEmail.password = hashedPassword
                 existingUserByEmail.verifyCode = verifyCode
                 existingUserByEmail.verifyCodeExp = new Date(Date.now() + 3600000)
+                existingUserByEmail.isVerified = true
                 await existingUserByEmail.save()
             }
         }
@@ -55,15 +56,15 @@ export async function POST(request: Request) {
                 password: hashedPassword,
                 verifyCode,
                 verifyCodeExp: expiryDate,
-                isVerified: false,
+                isVerified: true,
                 isAcceptingMessages: true,
                 messages: [],
             });
             await newUser.save()
 
         }
-        // send email
-        const emailResponse = await sendVerificationEmail(email, username, verifyCode)
+        // send email (commented out to pause email service)
+        // const emailResponse = await sendVerificationEmail(email, username, verifyCode)
 
     //     if (!emailResponse.success) {
     //         return Response.json({

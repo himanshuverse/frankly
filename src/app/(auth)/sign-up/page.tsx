@@ -5,6 +5,7 @@ import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDebounceValue } from "usehooks-ts";
@@ -149,12 +150,23 @@ const handleFromUrl = searchParams.get("handle") || "";
       await axios.post<ApiResponse>("/api/sign-up", data);
 
 
-      toast.success("Account created successfully");
+      toast.success("Account created successfully. Signing in...");
 
+      // Auto sign-in
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
 
-      router.replace(
-        `/verify/${encodeURIComponent(data.username)}`
-      );
+      if (result?.ok) {
+        toast.success("Signed in successfully");
+        router.replace("/dashboard");
+        router.refresh();
+      } else {
+        toast.error("Account created, please sign in manually");
+        router.replace("/sign-in");
+      }
 
     } catch (error) {
       console.error("Error during sign-up:", error);
