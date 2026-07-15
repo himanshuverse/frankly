@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from "zod";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 
-export default function SignUpPage() {
+function SignUpForm() {
   const router = useRouter();
     const searchParams = useSearchParams();
 const handleFromUrl = searchParams.get("handle") || "";
@@ -453,5 +453,19 @@ const handleFromUrl = searchParams.get("handle") || "";
       </footer>
 
     </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-xs uppercase tracking-wider font-bold text-muted-foreground">
+          Loading sign up...
+        </p>
+      </div>
+    }>
+      <SignUpForm />
+    </Suspense>
   );
 }
