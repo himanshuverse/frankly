@@ -94,9 +94,8 @@ export default function DashboardPage() {
       if (refresh) {
         toast.success("Feed refreshed successfully");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to fetch messages:", error);
-      toast.error("Failed to fetch messages");
     } finally {
       setIsLoading(false);
     }
@@ -325,22 +324,20 @@ export default function DashboardPage() {
             {/* Inbox Feed Tab */}
             <button
               onClick={() => setActiveTab("inbox")}
-              className={`w-full flex items-center justify-between px-4 py-3 rounded-none text-xs uppercase tracking-wider font-extrabold transition-all duration-200 cursor-pointer shrink-0 border ${
-                activeTab === "inbox"
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-none text-xs uppercase tracking-wider font-extrabold transition-all duration-200 cursor-pointer shrink-0 border ${activeTab === "inbox"
                   ? "bg-primary/5 text-primary border-primary/30 border-l-4 shadow-[inset_3px_0_0_0_rgba(132,204,22,0.4)]"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/30 border-transparent"
-              }`}
+                }`}
             >
               <span className="flex items-center gap-3">
                 <Inbox className="w-4 h-4" />
                 <span>Inbox Feed</span>
               </span>
               <span
-                className={`text-[9px] font-mono font-bold px-2 py-0.5 border border-dashed rounded-none ${
-                  activeTab === "inbox"
+                className={`text-[9px] font-mono font-bold px-2 py-0.5 border border-dashed rounded-none ${activeTab === "inbox"
                     ? "border-primary/30 text-primary bg-primary/10"
                     : "border-border text-muted-foreground bg-muted/40"
-                }`}
+                  }`}
               >
                 {feedbacks.length}
               </span>
@@ -349,11 +346,10 @@ export default function DashboardPage() {
             {/* Analytics Tab */}
             <button
               onClick={() => setActiveTab("analytics")}
-              className={`w-full flex items-center justify-between px-4 py-3 rounded-none text-xs uppercase tracking-wider font-extrabold transition-all duration-200 cursor-pointer shrink-0 border ${
-                activeTab === "analytics"
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-none text-xs uppercase tracking-wider font-extrabold transition-all duration-200 cursor-pointer shrink-0 border ${activeTab === "analytics"
                   ? "bg-primary/5 text-primary border-primary/30 border-l-4 shadow-[inset_3px_0_0_0_rgba(132,204,22,0.4)]"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/30 border-transparent"
-              }`}
+                }`}
             >
               <span className="flex items-center gap-3">
                 <BarChart3 className="w-4 h-4" />
@@ -367,20 +363,18 @@ export default function DashboardPage() {
             {/* Settings Tab */}
             <button
               onClick={() => setActiveTab("settings")}
-              className={`w-full flex items-center justify-between px-4 py-3 rounded-none text-xs uppercase tracking-wider font-extrabold transition-all duration-200 cursor-pointer shrink-0 border ${
-                activeTab === "settings"
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-none text-xs uppercase tracking-wider font-extrabold transition-all duration-200 cursor-pointer shrink-0 border ${activeTab === "settings"
                   ? "bg-primary/5 text-primary border-primary/30 border-l-4 shadow-[inset_3px_0_0_0_rgba(132,204,22,0.4)]"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/30 border-transparent"
-              }`}
+                }`}
             >
               <span className="flex items-center gap-3">
                 <Settings className="w-4 h-4" />
                 <span>Settings</span>
               </span>
               <span
-                className={`w-1.5 h-1.5 rounded-full ${
-                  acceptMessages ? "bg-primary" : "bg-neutral-500"
-                }`}
+                className={`w-1.5 h-1.5 rounded-full ${acceptMessages ? "bg-primary" : "bg-neutral-500"
+                  }`}
               />
             </button>
           </nav>
@@ -417,28 +411,25 @@ export default function DashboardPage() {
                       <button
                         key={category}
                         onClick={() => setFilterCategory(category)}
-                        className={`text-[9px] uppercase tracking-wider font-extrabold px-3 py-1.5 rounded-none border transition-all cursor-pointer flex items-center gap-2 shrink-0 ${
-                          isActive
+                        className={`text-[9px] uppercase tracking-wider font-extrabold px-3 py-1.5 rounded-none border transition-all cursor-pointer flex items-center gap-2 shrink-0 ${isActive
                             ? "bg-primary border-primary text-primary-foreground shadow-[0_0_12px_rgba(132,204,22,0.15)] font-black"
                             : "border-border/60 hover:border-muted-foreground/40 bg-card/45 text-muted-foreground"
-                        }`}
+                          }`}
                       >
                         {category === "Star" ? (
                           <Star className={`w-3 h-3 text-amber-400 ${isActive ? "fill-primary-foreground" : "fill-amber-400/40"}`} />
                         ) : (
                           <span
-                            className={`w-1.5 h-1.5 rounded-full ${dotColor} ${
-                              isActive ? "animate-pulse" : ""
-                            }`}
+                            className={`w-1.5 h-1.5 rounded-full ${dotColor} ${isActive ? "animate-pulse" : ""
+                              }`}
                           />
                         )}
                         <span>{category}</span>
                         <span
-                          className={`text-[8px] font-mono font-bold ml-1 px-1 py-0.2 border ${
-                            isActive
+                          className={`text-[8px] font-mono font-bold ml-1 px-1 py-0.2 border ${isActive
                               ? "border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground"
                               : "border-border text-muted-foreground/60 bg-muted/10"
-                          }`}
+                            }`}
                         >
                           {count}
                         </span>
@@ -501,16 +492,16 @@ export default function DashboardPage() {
                           {feedbacks.length === 0
                             ? "No feedbacks received yet"
                             : filterCategory === "Star"
-                            ? "No starred messages"
-                            : "No matches found"}
+                              ? "No starred messages"
+                              : "No matches found"}
                         </p>
 
                         <p className="text-xs text-muted-foreground leading-relaxed">
                           {feedbacks.length === 0
                             ? "Share your custom feedback link with your audience to begin receiving honest, constructive anonymous messages."
                             : filterCategory === "Star"
-                            ? "Star your favorite messages to quickly find them under this tab later."
-                            : `There are currently no feedback entries matching the "${filterCategory.toLowerCase()}" category.`}
+                              ? "Star your favorite messages to quickly find them under this tab later."
+                              : `There are currently no feedback entries matching the "${filterCategory.toLowerCase()}" category.`}
                         </p>
                       </div>
 
@@ -761,18 +752,16 @@ export default function DashboardPage() {
                   <button
                     type="button"
                     onClick={handleSwitchChange}
-                    className={`w-14 h-7 rounded-none transition-all relative border cursor-pointer p-0.5 ${
-                      acceptMessages
+                    className={`w-14 h-7 rounded-none transition-all relative border cursor-pointer p-0.5 ${acceptMessages
                         ? "bg-primary/10 border-primary shadow-[0_0_12px_rgba(132,204,22,0.15)]"
                         : "bg-muted/50 border-dashed border-border"
-                    }`}
+                      }`}
                   >
                     <span
-                      className={`absolute top-0.5 bottom-0.5 w-6 rounded-none transition-all duration-300 flex items-center justify-center text-[8px] font-black uppercase ${
-                        acceptMessages
+                      className={`absolute top-0.5 bottom-0.5 w-6 rounded-none transition-all duration-300 flex items-center justify-center text-[8px] font-black uppercase ${acceptMessages
                           ? "left-7 bg-primary text-black"
                           : "left-0.5 bg-neutral-600 text-neutral-300"
-                      }`}
+                        }`}
                     >
                       {acceptMessages ? "ON" : "OFF"}
                     </span>

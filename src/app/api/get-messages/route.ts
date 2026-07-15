@@ -38,6 +38,20 @@ export async function GET() {
 
     const userId = new mongoose.Types.ObjectId(sessionUser._id);
 
+    // Verify user exists first
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return Response.json(
+        {
+          success: false,
+          message: "User not found",
+        },
+        {
+          status: 404,
+        }
+      );
+    }
+
     const users = await UserModel.aggregate([
       {
         $match: {
@@ -62,23 +76,13 @@ export async function GET() {
       },
     ]);
 
-    if (!users || users.length === 0) {
-      return Response.json(
-        {
-          success: false,
-          message: "User not found or no messages available",
-        },
-        {
-          status: 404,
-        }
-      );
-    }
+    const messagesList = (users && users.length > 0) ? users[0].messages : [];
 
     return Response.json(
       {
         success: true,
         message: "Messages retrieved successfully",
-        messages: users[0].messages,
+        messages: messagesList,
       },
       {
         status: 200,
