@@ -3,7 +3,9 @@ import mongoose ,{Schema,Document} from "mongoose";
 
 export interface Message extends Document{
     content:string,
-    createdAt:Date
+    createdAt:Date,
+    isStarred?:boolean,
+    category?:string
 }
 
 const MessageSchema : Schema<Message>= new Schema({
@@ -15,6 +17,14 @@ const MessageSchema : Schema<Message>= new Schema({
         type:Date,
         required:true,
         default:Date.now
+    },
+    isStarred:{
+        type:Boolean,
+        default:false
+    },
+    category:{
+        type:String,
+        default:"General"
     }
 })
 
@@ -62,6 +72,10 @@ const UserSchema :Schema<User> = new Schema({
     messages:[MessageSchema]
 })
 
-const UserModel = (mongoose.models.User as mongoose.Model<User>) || (mongoose.model<User>("User",UserSchema))
+if (mongoose.models && mongoose.models.User) {
+  delete (mongoose.models as any).User;
+}
+
+const UserModel = mongoose.model<User>("User", UserSchema);
 
 export default UserModel
