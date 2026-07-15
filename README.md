@@ -1,4 +1,4 @@
-#  FRANKLY
+# 💬 FRANKLY
 
 **FRANKLY** is a modern anonymous feedback platform that allows users to receive honest, anonymous messages through a unique and shareable profile link.
 
@@ -6,9 +6,12 @@ Create your account, share your personal link, and let anyone send you anonymous
 
 Built with **Next.js, TypeScript, MongoDB, NextAuth.js, Tailwind CSS, and AI-powered message suggestions**.
 
+🔗 **Live Demo:** [getfrankly.vercel.app](https://getfrankly.vercel.app)
+
 ---
 
-##  Features
+
+## ✨ Features
 
 - 🔐 **Secure Authentication** — Sign up, verify your account, and log in securely.
 - 🔗 **Unique Public Profile Link** — Every user gets a personal shareable URL:
@@ -28,7 +31,7 @@ Built with **Next.js, TypeScript, MongoDB, NextAuth.js, Tailwind CSS, and AI-pow
 
 ---
 
-##  Tech Stack
+## 🛠️ Tech Stack
 
 | Technology | Purpose |
 | --- | --- |
@@ -44,7 +47,7 @@ Built with **Next.js, TypeScript, MongoDB, NextAuth.js, Tailwind CSS, and AI-pow
 
 ---
 
-##  How It Works
+## 🚀 How It Works
 
 1. **Create an account** and choose a unique username.
 2. **Verify your email** using the verification code sent to your inbox.
@@ -61,22 +64,22 @@ Built with **Next.js, TypeScript, MongoDB, NextAuth.js, Tailwind CSS, and AI-pow
 
 ---
 
-##  Project Structure
+## 📂 Project Structure
 
 ```text
 📦 frankly
-├── 📁 components /
-├── 📁 emails /
-├── 📁 lib /
-├── 📁 public /
-└── 📁 src /
-    ├── 📁 app /
-    ├── 📁 context /
-    ├── 📁 helpers /
-    ├── 📁 lib /
-    ├── 📁 model /
-    ├── 📁 schemas /
-    └── 📁 types /
+├── 📁 components/
+├── 📁 emails/
+├── 📁 lib/
+├── 📁 public/
+└── 📁 src/
+    ├── 📁 app/
+    ├── 📁 context/
+    ├── 📁 helpers/
+    ├── 📁 lib/
+    ├── 📁 model/
+    ├── 📁 schemas/
+    └── 📁 types/
 ```
 
 ### Folder Overview
@@ -97,7 +100,7 @@ Built with **Next.js, TypeScript, MongoDB, NextAuth.js, Tailwind CSS, and AI-pow
 
 ---
 
-##  Getting Started
+## ⚙️ Getting Started
 
 Follow these steps to run **FRANKLY** locally.
 
@@ -134,11 +137,11 @@ MONGODB_URI=your_mongodb_connection_string
 
 NEXTAUTH_SECRET=your_nextauth_secret
 NEXTAUTH_URL=http://localhost:3000
-
 ```
 
 Depending on your email provider, you may also need additional environment variables for sending verification emails.
 
+> **Important:** Never commit your `.env` or `.env.local` file to GitHub. Make sure it is included in your `.gitignore`.
 
 ### 4. Start the Development Server
 
@@ -154,7 +157,7 @@ http://localhost:3000
 
 ---
 
-##  Environment Variables
+## 🔐 Environment Variables
 
 | Variable | Description | Required |
 | --- | --- | --- |
@@ -166,7 +169,7 @@ Add any additional email-service credentials required by your implementation.
 
 ---
 
-##  Available Scripts
+## 📜 Available Scripts
 
 ```bash
 # Start the development server
@@ -184,7 +187,7 @@ npm run lint
 
 ---
 
-##  Security & Privacy
+## 🛡️ Security & Privacy
 
 FRANKLY is designed around anonymous communication while maintaining secure user authentication.
 
@@ -198,19 +201,19 @@ FRANKLY is designed around anonymous communication while maintaining secure user
 
 ---
 
-##  Future Improvements
+## 🗺️ Future Improvements
 
 Potential features planned for future versions:
 
--  Rate limiting and spam protection
--  Report abusive messages
--  Block specific users or IP addresses
--  AI-powered content moderation
--  Message reactions
--  Custom profile pages
--  Analytics for profile views and messages
--  Social sharing integration
--  Progressive Web App support
+- [ ] Rate limiting and spam protection
+- [ ] Report abusive messages
+- [ ] Block specific users or IP addresses
+- [ ] AI-powered content moderation
+- [ ] Message reactions
+- [ ] Custom profile pages
+- [ ] Analytics for profile views and messages
+- [ ] Social sharing integration
+- [ ] Progressive Web App support
 
 ---
 
@@ -243,11 +246,12 @@ To contribute:
 
 ---
 
-##  Author
+## 👨‍💻 Author
 
 **Himanshu Mittal**
 
-GitHub: `@himanshuverse`
+- GitHub: [@himanshuverse](https://github.com/himanshuverse)
+- Live Project: [getfrankly.vercel.app](https://getfrankly.vercel.app)
 
 ---
 
