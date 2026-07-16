@@ -9,6 +9,19 @@ Built with **Next.js, TypeScript, MongoDB, NextAuth.js, Tailwind CSS, and AI-pow
 🔗 **Live Demo:** [getfrankly.vercel.app](https://getfrankly.vercel.app)
 
 ---
+## 📸 Screenshots
+
+### Landing Page
+![Landing Page](./public/screenshots/landing_page.png)
+
+### Dashboard — Inbox
+![Dashboard Inbox](./public/screenshots/dashboard_inbox.png)
+
+### Send Message Page
+![Send Page](./public/screenshots/send_page.png)
+
+### Dashboard — Analytics
+![Dashboard Analytics](./public/screenshots/dashboard_analytics.png)
 
 
 ## ✨ Features
